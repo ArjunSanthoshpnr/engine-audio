@@ -39,7 +39,7 @@ export const bac_mono: EngineConfiguration = {
         limiter: 9000,
         soft_limiter: 8950,
         limiter_ms: 0,
-        inertia: 1.0,
+        inertia: 0.15,
     },
     drivetrain: {
         shiftTime: 50,
@@ -81,7 +81,7 @@ export const ferr_458: EngineConfiguration = {
         limiter: 8900,
         soft_limiter: 8800,
         limiter_ms: 0,
-        inertia: 0.8
+        inertia: 0.12
     },
     drivetrain: {
         shiftTime: 10,
@@ -125,7 +125,7 @@ export const procar: EngineConfiguration = {
         limiter: 9000,
         soft_limiter: 9000,
         limiter_ms: 150,
-        // inertia: 1.5
+        inertia: 0.2
     },
     drivetrain: {
         shiftTime: 100,
