@@ -95,6 +95,7 @@ function update(time: DOMHighResTimeStamp): void {
     
     currentTime = (new Date()).getTime();
     dt = (currentTime - lastTime) / 1000;
+    if (dt > 0.1) dt = 0.1; // Prevent physics explosion after tab switch
     lastTime = currentTime;
 
     if (dt === 0) {
