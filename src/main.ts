@@ -202,8 +202,8 @@ function update(time: DOMHighResTimeStamp): void {
 
     // Update Dashboard UI
     const rpm = engine.rpm;
-    // 0 RPM = -127deg, 10000 RPM = +127deg -> range 254 deg
-    const rpmRotation = clamp(-127 + (rpm / 10000) * 254, -127, 140);
+    // 0 RPM = -135deg, 10000 RPM = +135deg -> range 270 deg
+    const rpmRotation = clamp(-135 + (rpm / 10000) * 270, -135, 140);
     const rpmNeedle = document.getElementById('rpm_needle');
     if (rpmNeedle) rpmNeedle.style.transform = `rotate(${rpmRotation}deg)`;
 
@@ -212,8 +212,8 @@ function update(time: DOMHighResTimeStamp): void {
 
     // Velocity m/s to km/h
     const speed = Math.max(0, vehicle.velocity * 3.6);
-    // 0 km/h = -127deg, 500 km/h = +127deg -> range 254 deg
-    const speedRotation = clamp(-127 + (speed / 500) * 254, -127, 140);
+    // 0 km/h = -135deg, 500 km/h = +135deg -> range 270 deg
+    const speedRotation = clamp(-135 + (speed / 500) * 270, -135, 140);
     const speedNeedle = document.getElementById('speed_needle');
     if (speedNeedle) speedNeedle.style.transform = `rotate(${speedRotation}deg)`;
 

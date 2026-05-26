@@ -124,13 +124,22 @@ export class Engine {
     const w_drivetrain = load_inertia > 0 ? 1.0 / load_inertia : 0;
     
     const dv = drivetrain.omega - this.omega;
-    const impulse = dv / (w_engine + w_drivetrain);
+    let impulse = dv / (w_engine + w_drivetrain);
     
+    // DSG slipping clutch logic for launch
+    if (coupling > 0.0 && drivetrain.gear === 1 && drivetrain.omega < this.omega && this.rpm < 3000) {
+        // Clutch torque increases with RPM above idle
+        const max_clutch_torque = Math.max(0, (this.rpm - 800) * 2.0); 
+        const max_impulse = max_clutch_torque * h;
+        
+        if (impulse > max_impulse) impulse = max_impulse;
+        if (impulse < -max_impulse) impulse = -max_impulse;
+    }
+
     // Apply impulse to both simultaneously to conserve momentum!
     this.omega += (impulse * w_engine) * coupling;
     drivetrain.omega -= (impulse * w_drivetrain) * coupling;
   }
-
   getCorrection(corr: number, h: number, compliance = 0) {
     const w = (corr * corr * 1) / this.inertia; // idk?
     const dlambda = -corr / (w + compliance / h / h);

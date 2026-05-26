@@ -48,10 +48,10 @@ export class Vehicle {
     if (this.drivetrain.gear > 0) {
         // If v is 0, don't apply brake backwards
         if (v < 0.1 && load_torque > 0 && this.engine.throttle === 0) {
-            load_torque = this.engine.torque * 2; // Prevent reversing
+            load_torque = 0; // Prevent stalling the engine with braking forces when idling
             this.velocity = 0;
             this.drivetrain.omega = 0;
-            this.engine.omega = 0;
+            // Removed: this.engine.omega = 0;
         } else {
             load_torque /= this.drivetrain.getTotalGearRatio();
         }
